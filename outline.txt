@@ -1,0 +1,38 @@
+main.py
+DB package
+	Table setup class
+		User table, credential table, trip table
+	CRUD class
+	Authentication class
+		Hash function
+		Salt function
+		Validate function
+API package
+	Weather class
+	Uber class
+		Authentication function
+		Get function
+	BingMapsRoutes class
+	Lat_long class
+		Convert to Lat_long function
+		Convert to address function
+UI package
+	Object class
+		User object
+		Trip object
+		Tripstore object
+	Sign_in_or_setup class
+	Output class
+		Display menu function
+		Display data function
+Validation package
+	Validation class
+		Validate email function
+		Validate password function
+		Validate response function
+Test package
+	Test API class
+	Test DB class
+	Test validation class
+	Test UI class
+main.py
