@@ -1,3 +1,5 @@
+Good job on planning guys, here is the general outline as discussed in our meeting.
+
 main.py
 DB package
 	Table setup class
