@@ -1,5 +1,3 @@
-crud.py
-
 def setup_database():
 	#TODO create user table
 	#TODO create credential table
