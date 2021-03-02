@@ -14,3 +14,9 @@ class Tripstore:
 
 	def __init__(self):
 		pass
+
+
+class Menu:
+
+	def __init__(self):
+		pass
