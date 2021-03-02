@@ -5,6 +5,10 @@ DB package
 	Table setup class
 		User table, credential table, trip table
 	CRUD class
+		Create function
+		Read function
+		Update function
+		Delete function
 	Authentication class
 		Hash function
 		Salt function
@@ -12,12 +16,13 @@ DB package
 API package
 	Weather class
 	Uber class
-		Authentication function
+		Authentication function	
 		Get function
 	BingMapsRoutes class
 	Lat_long class
 		Convert to Lat_long function
 		Convert to address function
+	Cache class
 UI package
 	Object class
 		User object
@@ -27,6 +32,7 @@ UI package
 	Output class
 		Display menu function
 		Display data function
+	Menu class
 Validation package
 	Validation class
 		Validate email function
@@ -38,3 +44,6 @@ Test package
 	Test validation class
 	Test UI class
 main.py
+
+
+**
