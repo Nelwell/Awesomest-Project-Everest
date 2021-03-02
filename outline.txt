@@ -28,11 +28,11 @@ UI package
 		User object
 		Trip object
 		Tripstore object
-	Sign_in_or_setup class
+		Menu object
+			Sign_in_or_setup methods
 	Output class
 		Display menu function
 		Display data function
-	Menu class
 Validation package
 	Validation class
 		Validate email function
@@ -46,4 +46,4 @@ Test package
 main.py
 
 
-**
+**UI
