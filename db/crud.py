@@ -1,8 +1,8 @@
 def setup_database():
-	#TODO create user table
 	#TODO create credential table
 	#TODO create trip table
-	pass
+	create_sql = 'CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, name TEXT UNIQUE)'
+	create_table(create_sql)
 
 
 def create_table(create_sql):
