@@ -1,8 +1,9 @@
 def setup_database():
-	#TODO create trip table
 	create_sql = 'CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, username TEXT UNIQUE, name TEXT)'
 	create_table(create_sql)
 	create_sql = 'CREATE TABLE IF NOT EXISTS credentials (credential_id INTEGER PRIMARY KEY, username TEXT UNIQUE, email_address TEXT UNIQUE, password TEXT UNIQUE, salt TEXT UNIQUE, FOREIGN KEY(username) REFERENCES users(username))'
+	create_table(create_sql)
+	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT, trip_start_time DATETIME, trip_start_lat DECIMAL, trip_start_long DECIMAL, trip_stop_lat DECIMAL, trip_stop_long DECIMAL, price DECIMAL, FOREIGN KEY(username) REFERENCES users(username))'
 	create_table(create_sql)
 
 
