@@ -1,3 +1,7 @@
+import sqlite3
+
+DATABASE = 'awesomest_db.sqlite'
+
 def setup_database():
 	'''The three tables are users: storing base information about users; credentials: storing
 	 information to authenticate within the application; and trips: storing api data about
@@ -69,3 +73,6 @@ def update_row():
 
 def delete_row():
 	pass
+
+
+setup_database()
