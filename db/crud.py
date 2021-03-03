@@ -39,6 +39,15 @@ def setup_database():
 	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT NOT NULL, trip_start_time DATETIME, trip_start_address TEXT, trip_start_city TEXT, trip_start_state TEXT, trip_stop_address TEXT NOT NULL, trip_stop_city TEXT NOT NULL, trip_stop_state TEXT NOT NULL, price DECIMAL, is_transit BOOLEAN, FOREIGN KEY(username) REFERENCES users(username))'
 	create_table(create_sql)
 
+	'''Trip_id acts as a foreign key from users table; temperature is temperature X amount of
+	 minutes after start time of trip; description is a text value of weather, e.g. cloudy,
+	 raining, snowing.'''
+	'''NOT NULL constraints not listed under temperature and description for the case the api
+	 returns None for that location and time. Constraint should be placed if check is made
+	 elsewhere to prevent this.'''
+	create_sql = 'CREATE TABLE IF NOT EXISTS weather_details (weather_id INTEGER PRIMARY KEY, trip_id INTEGER NOT NULL, temperature_f DECIMAL, description TEXT, FOREIGN KEY(trip_id) REFERENCES trips(trip_id))'
+	create_table(create_sql)
+
 
 def create_table(create_sql):
 	with sqlite3.connect(DATABASE) as connection:
