@@ -15,8 +15,9 @@ def setup_database():
 	create_table(create_sql)
 	'''Username acts as a foreign key from users table; trip_start_time is time user called, or
 	 planned from their ride; start/end lat/long columns are the location start and end points;
-	 price is estimate gained from uber, or calculated value based on distance from transit.'''
-	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT, trip_start_time DATETIME, trip_start_lat DECIMAL, trip_start_long DECIMAL, trip_stop_lat DECIMAL, trip_stop_long DECIMAL, price DECIMAL, FOREIGN KEY(username) REFERENCES users(username))'
+	 price is estimate gained from uber, or calculated value based on distance from transit;
+	 is_transit is a boolean value determining if ride share or public transit.'''
+	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT, trip_start_time DATETIME, trip_start_lat DECIMAL, trip_start_long DECIMAL, trip_stop_lat DECIMAL, trip_stop_long DECIMAL, price DECIMAL, is_transit BOOLEAN, FOREIGN KEY(username) REFERENCES users(username))'
 	create_table(create_sql)
 
 
