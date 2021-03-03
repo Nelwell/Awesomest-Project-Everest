@@ -4,7 +4,7 @@ import crypt
 
 def hash_password(password, salt):
 	salted_password = f'{salt}{password}'	# Add password and salt for added security
-	byte_string = str.encode(salted_password)	# Convert to bytes to for hashing
+	byte_string = salted_password.encode()	# Convert to bytes to for hashing
 	salty_hashbrowns = hashlib.sha512(byte_string)	# Hash bytes using SHA
 	digested_hashbrowns = salty_hashbrowns.hexdigest()	# Convert to hex str for easy comparison/storage
 
