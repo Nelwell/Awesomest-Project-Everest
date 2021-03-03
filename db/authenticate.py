@@ -1,4 +1,5 @@
 import hashlib
+import crypt
 
 
 def hash_password(password, salt):
@@ -11,7 +12,10 @@ def hash_password(password, salt):
 
 
 def create_salt():
-	pass
+	'''Couldn't remember how to make a salt in python, credit goes to lorenzi in this post:
+	 https://stackoverflow.com/questions/5293959/creating-a-salt-in-python'''
+	salt = crypt.mksalt(crypt.METHOD_SHA512)	# Create 16 char long salt
+	return salt
 
 
 def passwords_match():
