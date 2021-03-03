@@ -18,5 +18,7 @@ def create_salt():
 	return salt
 
 
-def passwords_match():
-	pass
+def passwords_match(password, salt, valid_credentials):
+	test_credentials = hash_password(password, salt)
+
+	return test_credentials == valid_credentials:
