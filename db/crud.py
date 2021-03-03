@@ -20,6 +20,17 @@ def setup_database():
 	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT, trip_start_time DATETIME, trip_start_lat DECIMAL, trip_start_long DECIMAL, trip_stop_lat DECIMAL, trip_stop_long DECIMAL, price DECIMAL, is_transit BOOLEAN, FOREIGN KEY(username) REFERENCES users(username))'
 	create_table(create_sql)
 
+	'''Either this, or the previous create_sql strings and create_table calls should be commented
+	 out, depending on whether or not lat/long is used, or if lat/long and address is needed,
+	 based on whichever conversion is easier.'''
+
+	'''Username acts as a foreign key from users table; trip_start_time is time user called, or
+	 planned from their ride; start/end address columns are the location start and end points;
+	 price is estimate gained from uber, or calculated value based on distance from transit;
+	 is_transit is a boolean value determining if ride share or public transit.'''
+	create_sql = 'CREATE TABLE IF NOT EXISTS trips (trip_id INTEGER PRIMARY KEY, username TEXT, trip_start_time DATETIME, trip_start_address TEXT, trip_start_city TEXT, trip_start_state TEXT, trip_stop_address TEXT, trip_stop_city TEXT, trip_stop_state TEXT, price DECIMAL, is_transit BOOLEAN, FOREIGN KEY(username) REFERENCES users(username))'
+	create_table(create_sql)
+
 
 def create_table(create_sql):
 	with sqlite3.connect(DATABASE) as connection:
