@@ -5,6 +5,12 @@ def setup_database():
 	pass
 
 
+def create_table(create_sql):
+	with sqlite3.connect(DATABASE) as connection:
+		connection.execute(create_sql)
+	connection.close()
+
+
 def create_row():
 	pass
 
