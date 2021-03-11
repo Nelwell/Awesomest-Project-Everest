@@ -1,6 +1,5 @@
 import hashlib
-import crypt
-
+import bcrypt
 
 def hash_password(password, salt):
 	salted_password = f'{salt}{password}'	# Add password and salt for added security
@@ -12,9 +11,8 @@ def hash_password(password, salt):
 
 
 def create_salt():
-	'''Couldn't remember how to make a salt in python, credit goes to lorenzi in this
-	 post: https://stackoverflow.com/questions/5293959/creating-a-salt-in-python'''
-	salt = crypt.mksalt(crypt.METHOD_SHA512)	# Create 16 char long salt
+	'''Create a hex string to '''
+	salt = bcrypt.gensalt()
 
 	return salt
 
