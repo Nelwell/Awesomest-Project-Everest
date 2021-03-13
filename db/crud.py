@@ -1,6 +1,5 @@
 import sqlite3
-
-DATABASE = 'awesomest_db.sqlite'
+from db_config import DATABASE
 
 
 def setup_database():
