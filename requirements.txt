@@ -3,3 +3,11 @@ chardet==4.0.0
 idna==2.10
 requests==2.25.1
 urllib3==1.26.3
+bcrypt==3.2.0
+cffi==1.14.5
+geographiclib==1.50
+geopy==2.1.0
+pycparser==2.20
+PyYAML==5.4.1
+six==1.15.0
+uber-rides==0.6.0
