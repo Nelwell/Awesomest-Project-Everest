@@ -1,4 +1,5 @@
 env
 *.pyc
 .idea
+db/*.sqlite
 Project 4 Planning Worksheet Spring 2021 Group4.docx
