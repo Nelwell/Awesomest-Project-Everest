@@ -92,6 +92,7 @@ class DatabaseManager:
 		connection.close()
 
 
+	'''This method takes the columns from the method it's called by to create a string to use for sql insertion.'''
 	def get_insert_statement(self,table,columns,values):
 		insert = f'INSERT INTO {table} ('
 		for i in range(len(columns)):
@@ -105,10 +106,12 @@ class DatabaseManager:
 		return insert
 
 
+	'''Return a tuple of a string. Pretty simple. Sure, yeah.'''
 	def get_creation_tuple(self,values):
 		return tuple(values)
 
 
+	'''Method should be sent string values of table to update, key and value.'''
 	def read_row(self, table, key, value, rows='*'):
 		results = []
 
@@ -121,6 +124,8 @@ class DatabaseManager:
 		return results
 
 
+	'''Method should be sent string values of table to update, column to check, column to update, value to check, and
+	 value to update.'''
 	def update_row(self, table, where_column, set_column, where_value, set_value):
 		with sqlite3.connect(DATABASE) as connection:
 			update = f'UPDATE {table} SET {set_column} = ? WHERE {where_column} = ?'
@@ -128,7 +133,8 @@ class DatabaseManager:
 		connection.close()
 
 
-	def delete_row(self, table, delete_value, delete_column):
+	'''Method should be sent string values of table to update, column to check, and value to check for.'''
+	def delete_row(self, table, delete_column, delete_value):
 		with sqlite3.connect(DATABASE) as connection:
 			delete = f'DELETE FROM {table} WHERE {delete_column} = ?'
 			connection.execute(delete, (delete_value, ))
