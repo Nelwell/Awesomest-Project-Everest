@@ -18,6 +18,7 @@ def is_valid_json(jsonData):
 	#Returns a value error if the json is invalid and returns false, otherwise returns true.
     try:
         json.loads(jsonData)
+        return True
     except ValueError as err:
         return False
-    return True
+
