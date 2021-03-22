@@ -76,6 +76,19 @@ class DatabaseManager:
 		connection.close()
 
 
+	def get_insert_statement(self,table,columns,values):
+		insert = f'INSERT INTO {table} ('
+		for i in range(len(columns)):
+			insert = insert + columns[i]
+			if i < len(columns) - 1:
+				insert = insert + ', '
+		insert = insert + ')'
+		insert_buffer = ', ?'*(len(values)-1)
+		insert = f'{insert} values (?{insert_buffer})'
+
+		return insert
+
+
 	def get_creation_tuple(self,values):
 		return tuple(values)
 
