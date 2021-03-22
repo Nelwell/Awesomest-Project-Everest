@@ -2,6 +2,18 @@ import sqlite3
 from db_config import DATABASE
 
 
+# seconds_since_epoch = dt.now()
+# trip_start_eta = input('How many minutes from now do you want to leave?')
+# trip_start_time = seconds_since_epoch + (trip_start_eta * 60)
+# time_api_can_read = some_conversion(trip_start_time)
+
+
+datetime_for_api = input('What time would you like to leave? (HH:MM) ')
+datetime_for_api = datetime_for_api + ':00' #Adding seconds
+api_call(datetime_for_api)
+
+
+
 class DatabaseManager:
 	
 	def __init__(self):
@@ -76,6 +88,8 @@ class DatabaseManager:
 		connection.close()
 
 
+	'''Create Row method should be sent a string of the table to be modified, a list of strings for each column, and
+	 a list of strings for the values corresponding to each column.'''
 	def create_row(self,table,columns,values):
 		insert = self.get_insert_statement(table,columns,values)
 		creation_tuple = self.get_creation_tuple(values)
@@ -101,8 +115,16 @@ class DatabaseManager:
 		return tuple(values)
 
 
-	def read_row():
-		pass
+	def read_row(self, table, key, value, rows='*'):
+		results = []
+
+		select = f'SELECT {rows} FROM {table} WHERE {key} = ?'
+		connection = sqlite3.connect(DATABASE)
+		rows = connection.execute(select, (value,))
+		for row in rows:
+			results.append(row)
+		connection.close()
+		return results
 
 
 	def update_row():
