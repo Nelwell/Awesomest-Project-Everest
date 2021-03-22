@@ -128,6 +128,9 @@ class DatabaseManager:
 		connection.close()
 
 
-	def delete_row():
-		pass
+	def delete_row(self, table, delete_value, delete_column):
+		with sqlite3.connect(DATABASE) as connection:
+			delete = f'DELETE FROM {table} WHERE {delete_column} = ?'
+			connection.execute(delete, (delete_value, ))
+		connection.close()
 
