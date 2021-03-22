@@ -121,8 +121,11 @@ class DatabaseManager:
 		return results
 
 
-	def update_row():
-		pass
+	def update_row(self, table, where_column, set_column, where_value, set_value):
+		with sqlite3.connect(DATABASE) as connection:
+			update = f'UPDATE {table} SET {set_column} = ? WHERE {where_column} = ?'
+			connection.execute(update, (set_value,where_value))
+		connection.close()
 
 
 	def delete_row():
