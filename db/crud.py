@@ -8,12 +8,6 @@ from db_config import DATABASE
 # time_api_can_read = some_conversion(trip_start_time)
 
 
-datetime_for_api = input('What time would you like to leave? (HH:MM) ')
-datetime_for_api = datetime_for_api + ':00' #Adding seconds
-api_call(datetime_for_api)
-
-
-
 class DatabaseManager:
 	
 	def __init__(self):
