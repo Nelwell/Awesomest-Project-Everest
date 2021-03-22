@@ -63,10 +63,10 @@ class DatabaseManager:
 						'FOREIGN KEY(trip_id) REFERENCES trips(trip_id))'
 
 		tables = [create_users_sql, create_credentials_sql, create_trips_sql, create_wx_sql]  # list of db tables
-		create_table(tables)
+		self.create_table(tables)
 
 
-	def create_table(tables):
+	def create_table(self,tables):
 		enable_fk = 'PRAGMA foreign_keys = ON'
 
 		with sqlite3.connect(DATABASE) as connection:
@@ -76,8 +76,8 @@ class DatabaseManager:
 		connection.close()
 
 
-	def create_row():
-		pass
+	def get_creation_tuple(self,values):
+		return tuple(values)
 
 
 	def read_row():
@@ -91,5 +91,3 @@ class DatabaseManager:
 	def delete_row():
 		pass
 
-
-	setup_tables()
