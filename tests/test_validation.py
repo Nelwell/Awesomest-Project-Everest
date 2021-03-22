@@ -60,3 +60,14 @@ class ValidatorTest(unittest.TestCase):
         test_email = "hi*@hello.co.uk"
         response = is_valid_email(test_email)
         self.assertFalse(response)
+    
+    def test_is_valid_json(self):
+        #Check invalid json - https://pynative.com/python-json-validation/
+        test_json = """{"name": "jane doe", "salary": 9000, "email": "jane.doe@pynative.com",}"""
+        response = is_valid_json(test_json)
+        self.assertFalse(response)
+
+        #Check valid json - https://pynative.com/python-json-validation/
+        test_json = """{"name": "jane doe", "salary": 9000, "email": "jane.doe@pynative.com"}"""
+        response = is_valid_json(test_json)
+        self.assertTrue(response)
