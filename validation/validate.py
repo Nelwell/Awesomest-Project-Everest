@@ -13,10 +13,7 @@ def is_valid_password(password):
     return password_valid
 
 
-def is_valid_json():
-    import json
-
-def validateJSON(jsonData): 
+def is_valid_json(jsonData): 
 	#https://pynative.com/python-json-validation/ Shamelessly copied. 
 	#Returns a value error if the json is invalid and returns false, otherwise returns true.
     try:
