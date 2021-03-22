@@ -76,6 +76,14 @@ class DatabaseManager:
 		connection.close()
 
 
+	def create_row(self,table,columns,values):
+		insert = self.get_insert_statement(table,columns,values)
+		creation_tuple = self.get_creation_tuple(values)
+		with sqlite3.connect(DATABASE) as connection:
+			connection.execute(insert, creation_tuple)
+		connection.close()
+
+
 	def get_insert_statement(self,table,columns,values):
 		insert = f'INSERT INTO {table} ('
 		for i in range(len(columns)):
