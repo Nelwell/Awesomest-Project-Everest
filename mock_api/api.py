@@ -150,8 +150,6 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
       "currency_code": "USD"
     }
 
-    # other products - todo
-
     return [
         pool_price_json,
         uberxl_price_json,
