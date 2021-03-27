@@ -61,15 +61,15 @@ def price_estimate():
         start_lat = float(request.args.get('start_latitude', ''))
         start_lon = float(request.args.get('start_longitude', ''))
         end_lat = float(request.args.get('end_latitude', ''))
-        end_long = float(request.args.get('end_longitude', ''))
+        end_lon = float(request.args.get('end_longitude', ''))
     except ValueError:
         abort(401, 'Bad request - latitude and longitude must be numbers')
 
     # TODO verify lat and long values are sensible numbers so longitudes -180 -> +180, latitudes -90 -> +90
 
-    if start_lat and start_lon and end_lat and end_long:
+    if start_lat and start_lon and end_lat and end_lon:
         # create mock response 
-        response = mock_estimates(start_lon, start_lon, end_long, end_long)
+        response = mock_estimates(start_lon, start_lon, end_long, end_lon)
         return jsonify(response)
     else:
         abort(401, 'Bad request - include start and end locations')
