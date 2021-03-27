@@ -75,6 +75,10 @@ def price_estimate():
         abort(401, 'Bad request - include start and end locations')
 
 
+def validate_lat_lon(lat, lon):
+  pass
+
+
 def mock_estimates(start_lat, start_long, end_lat, end_long):
     # about how far apart are the coordinates? 
 
