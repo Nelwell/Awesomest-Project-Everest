@@ -75,7 +75,7 @@ def price_estimate():
         abort(401, 'Bad request - include start and end locations')
 
 
-def validate_lat_lon(lat, lon):
+def validate_lat_lon(go, lat, lon):
   pass
 
 
