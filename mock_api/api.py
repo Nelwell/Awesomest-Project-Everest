@@ -79,7 +79,12 @@ def price_estimate():
 
 
 def validate_lat_lon(go, lat, lon):
-  pass
+  if lat < -90 or lat > 90:
+    go = False
+  elif lon < -180 or lon > 180:
+    go = False
+  
+  return go
 
 
 def mock_estimates(start_lat, start_long, end_lat, end_long):
