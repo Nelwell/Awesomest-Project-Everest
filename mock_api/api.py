@@ -126,11 +126,23 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
       "currency_code": "USD"
     }
 
-    uberxl_price_json = {
+    uberx_price_json = {
     "localized_display_name": "uberX",
       "distance": distance,
       "display_name": "uberX",
       "product_id": "a1111c8c-c720-46c3-8534-2fcdd730040d",
+      "high_estimate": high_price,
+      "low_estimate": low_price,
+      "duration": duration,
+      "estimate": f"${low_price}-{high_price}",
+      "currency_code": "USD"
+    }
+
+    uberxl_price_json = {
+    "localized_display_name": "uberXL",
+      "distance": distance,
+      "display_name": "uberXL",
+      "product_id": "821415d8-3bd5-4e27-9604-194e4359a449",
       "high_estimate": high_price,
       "low_estimate": low_price,
       "duration": duration,
