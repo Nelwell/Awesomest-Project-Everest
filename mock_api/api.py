@@ -70,12 +70,15 @@ def price_estimate():
     go = validate_lat_lon(go, start_lat, start_lon)
     go = validate_lat_lon(go, end_lat, end_lon)
 
-    if start_lat and start_lon and end_lat and end_lon:
-        # create mock response 
-        response = mock_estimates(start_lon, start_lat, end_long, end_lat)
-        return jsonify(response)
+    if go:
+      if start_lat and start_lon and end_lat and end_lon:
+          # create mock response 
+          response = mock_estimates(start_lon, start_lat, end_long, end_lat)
+          return jsonify(response)
+      else:
+          abort(401, 'Bad request - include start and end locations')
     else:
-        abort(401, 'Bad request - include start and end locations')
+      abort(401, 'Bad request - latitude must be equal to or between -90 and 90, longitudes must be equal to or between -180 and 180')
 
 
 def validate_lat_lon(go, lat, lon):
