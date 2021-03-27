@@ -127,7 +127,15 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     }
 
     uberxl_price_json = {
-        # todo 
+    "localized_display_name": "uberX",
+      "distance": distance,
+      "display_name": "uberX",
+      "product_id": "a1111c8c-c720-46c3-8534-2fcdd730040d",
+      "high_estimate": high_price,
+      "low_estimate": low_price,
+      "duration": duration,
+      "estimate": f"${low_price}-{high_price}",
+      "currency_code": "USD"
     }
 
     # other products - todo
