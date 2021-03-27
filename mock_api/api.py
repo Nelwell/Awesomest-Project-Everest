@@ -66,7 +66,7 @@ def price_estimate():
         abort(401, 'Bad request - latitude and longitude must be numbers')
 
     # TODO verify lat and long values are sensible numbers so longitudes -180 -> +180, latitudes -90 -> +90
-    go = False
+    go = True
     go = validate_lat_lon(go, start_lat, start_lon)
     go = validate_lat_lon(go, end_lat, end_lon)
 
