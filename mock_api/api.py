@@ -69,7 +69,7 @@ def price_estimate():
 
     if start_lat and start_lon and end_lat and end_lon:
         # create mock response 
-        response = mock_estimates(start_lon, start_lon, end_long, end_lon)
+        response = mock_estimates(start_lon, start_lat, end_long, end_lat)
         return jsonify(response)
     else:
         abort(401, 'Bad request - include start and end locations')
