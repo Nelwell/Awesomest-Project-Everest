@@ -105,8 +105,25 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
 
     distance = round(distance_lat_long * 70, 2)   # in miles, to 2 decimal places 
 
-    pool_price_per_mile = 2.50  # I'm making this up
-    uberxl_price_per_mile = 3.50  # same 
+    # sample prices taken from https://www.uber.com/us/en/price-estimate/
+    pool_booking_fee = 2.20
+    uberx_booking_fee = 2.20
+    uberxl_booking_fee = 2.45
+    select_booking_fee = 2.45
+    uber_black_booking_fee = 0.00
+
+    pool_price_per_mile = 1.29
+    uberx_price_per_mile = 1.60
+    uberxl_price_per_mile = 2.47
+    select_price_per_mile = 2.81
+    uber_black_price_per_mile = 3.81
+
+    pool_minimum_fair = 7.65
+    uberx_minimum_fair = 7.20
+    uberxl_minimum_fair = 9.45
+    select_minimum_fair = 11.45
+    uber_black_minimum_fair = 15.00
+
     time_per_mile = 300   # seems to be seconds in the response, I'm making this up too
 
     low_price = math.floor(distance * pool_price_per_mile * 0.8)   # round down
