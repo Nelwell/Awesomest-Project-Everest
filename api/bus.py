@@ -4,8 +4,7 @@ import requests
 import logging
 from requests.models import Response
 from validate import *
-from api.validate import is_valid_json
-
+# from api.validate import *
 
 key = os.environ.get("bing_maps_key")
 
@@ -62,28 +61,28 @@ class BusTrip:
     #Transfers data from json to BusTrip object
     def extract_json(self, data):
         self.trip = data
-        self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost'] #Bing always returns 0
         self.trip_start_time = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['startTime']
-        self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['endTime']
+        self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['endTime'] #'/Date(1616950606000-0700)/' Format
         self.start_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualStart']['coordinates']
         self.end_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualEnd']['coordinates']
         self.duration = self.trip['resourceSets'][0]['resources'][0]['travelDuration']
         self.distance = self.trip['resourceSets'][0]['resources'][0]['travelDistance']
 
-
+    
     #Pulls JSON of trip from bing.
     def refresh_trip(self):
         try:
-            query = {'travelMode': self.mode, 'waypoint.1': self.start_location, 'waypoint.2':self.end_location, 'dateTime':self.start_time, 'key': key}
-            url = 'http://dev.virtualearth.net/REST/v1/Routes/'
+            query = {'distanceUnit':'mi', 'timeType':'departure', 'wp.1': self.start_location, 'wp.2':self.end_location, 'dateTime': self.start_time, 'key': key}
+            url = 'http://dev.virtualearth.net/REST/V1/Routes/Transit'
             response = requests.get(url, params=query)
             response.raise_for_status()
             data = response.json()
-
+            self.extract_json(data)
             #Uses json validator
-            if is_valid_json(data):
-                logging.info(f'Data recieved:\n{data}')
-                self.extract_json(data)
+            # if is_valid_json(data):
+            #     logging.info(f'Data recieved:\n{data}')
+            #     self.extract_json(data)
         except Exception as e:
            logging.exception(e)
            logging.exception(response.text)
