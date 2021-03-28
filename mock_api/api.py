@@ -136,11 +136,18 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair)
     uberx_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
 
+    low_price, high_price = get_fair_estimates(distance,select_price_per_mile,select_booking_fee,select_minimum_fair)
+    select_price_json = create_json('SELECT',distance,'57c0ff4e-1493-4ef9-a4df-6b961525cf9',high_price,low_price,duration)
+
+    low_price, high_price = get_fair_estimates(distance,uber_black_price_per_mile,uber_black_booking_fee,uber_black_minimum_fair)
+    uber_black_price_json = create_json('BLACK',distance,'d4abaae7-f4d6-4152-91cc-77523e8165a4',high_price,low_price,duration)
+
     return [
         pool_price_json,
         uberx_price_json,
         uberxl_price_json,
-        # todo other products
+        select_price_json,
+        uber_black_price_json
     ]
 
     # suggestion - tweak estimate based on time of day, whatever else you might think Uber might use to adjust pricing
