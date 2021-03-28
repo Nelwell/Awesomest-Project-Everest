@@ -40,3 +40,17 @@ class UberTrip():
 					self.distance = float(item['distance'])
 		except KeyError:
 			raise UberError('Invalid selection.')
+
+
+	def calculate_duration(self, duration):
+		modifier = 60	# seconds in a minute, minutes in an hour
+		seconds = duration % modifier ** 1
+		remainder = duration - seconds
+		minutes = remainder % modifier ** 2
+		hours = (duration - minutes) - seconds
+		hours = hours / modifier / modifier
+		minutes = minutes / modifier
+
+		new_time = f'{int(hours)}:{int(minutes)}:{int(seconds)}'
+
+		return new_time
