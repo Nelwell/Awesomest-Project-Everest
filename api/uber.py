@@ -14,3 +14,7 @@ class UberTrip():
 		self.end_lat = end_lat
 		self.end_lon = end_lon
 		self.trip_time = trip_time
+
+
+	def __str__(self):
+		return f'start lat, lon: {self.start_lat}, {self.start_lon}\nend lat, lon: {self.end_lat}, {self.end_lon}\ntrip time: {self.trip_time}\nprice: {self.price}\nduration: {self.duration}\ndistance: {self.distance}'
