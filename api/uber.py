@@ -7,7 +7,7 @@ class UberError(Exception):
 	pass
 
 
-class UberTrip():
+class UberTrip:
 	start_lat = None
 	start_lon = None
 	end_lat = None
