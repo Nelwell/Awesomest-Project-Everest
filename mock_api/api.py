@@ -128,43 +128,13 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     duration = math.floor(distance * time_per_mile)
 
     low_price, high_price = get_fair_estimates(distance,pool_price_per_mile,pool_booking_fee,pool_minimum_fair)
-    pool_price_json = {
-    "localized_display_name": "POOL",
-      "distance": distance,
-      "display_name": "POOL",
-      "product_id": "26546650-e557-4a7b-86e7-6a3942445247",
-      "high_estimate": high_price,
-      "low_estimate": low_price,
-      "duration": duration,
-      "estimate": f'${low_price}-{high_price}',
-      "currency_code": "USD"
-    }
+    pool_price_json = create_json('POOL',distance,'26546650-e557-4a7b-86e7-6a3942445247',high_price,low_price,duration)
 
     low_price, high_price = get_fair_estimates(distance,uberx_price_per_mile,uberx_booking_fee,uberx_minimum_fair)
-    uberx_price_json = {
-    "localized_display_name": "uberX",
-      "distance": distance,
-      "display_name": "uberX",
-      "product_id": "a1111c8c-c720-46c3-8534-2fcdd730040d",
-      "high_estimate": high_price,
-      "low_estimate": low_price,
-      "duration": duration,
-      "estimate": f"${low_price}-{high_price}",
-      "currency_code": "USD"
-    }
+    uberx_price_json = create_json('uberX',distance,'a1111c8c-c720-46c3-8534-2fcdd730040d',high_price,low_price,duration)
 
     low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair)
-    uberxl_price_json = {
-    "localized_display_name": "uberXL",
-      "distance": distance,
-      "display_name": "uberXL",
-      "product_id": "821415d8-3bd5-4e27-9604-194e4359a449",
-      "high_estimate": high_price,
-      "low_estimate": low_price,
-      "duration": duration,
-      "estimate": f"${low_price}-{high_price}",
-      "currency_code": "USD"
-    }
+    uberx_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
 
     return [
         pool_price_json,
