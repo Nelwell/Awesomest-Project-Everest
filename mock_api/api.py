@@ -188,3 +188,17 @@ def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair):
   return low_price, high_price
 
 
+def create_json(display_name,distance,product_id,high_price,low_price,duration):
+  json = {
+  "localized_display_name": name,
+    "distance": distance,
+    "display_name": name,
+    "product_id": product_id,
+    "high_estimate": high_price,
+    "low_estimate": low_price,
+    "duration": duration,
+    "estimate": f"${low_price}-{high_price}",
+    "currency_code": "USD"
+  }
+
+  return json
