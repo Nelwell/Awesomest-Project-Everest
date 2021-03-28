@@ -78,7 +78,7 @@ def price_estimate():
     if go:
       if start_lat and start_lon and end_lat and end_lon:
           # create mock response
-          response = mock_estimates(start_lon, start_lat, end_lon, end_lat)
+          response = mock_estimates(start_lon, start_lat, end_lon, end_lat, trip_time)
           return jsonify(response)
       else:
           abort(401, 'Bad request - include start and end locations')
@@ -95,7 +95,7 @@ def validate_lat_lon(go, lat, lon):
   return go
 
 
-def mock_estimates(start_lat, start_long, end_lat, end_long):
+def mock_estimates(start_lat, start_long, end_lat, end_long, trip_time):
     # about how far apart are the coordinates? 
 
 
@@ -132,19 +132,21 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     time_per_mile = 300   # seems to be seconds in the response, I'm making this up too
     duration = math.floor(distance * time_per_mile)
 
-    low_price, high_price = get_fair_estimates(distance,pool_price_per_mile,pool_booking_fee,pool_minimum_fair)
+    surge_modifier = calculate_surge_modifier(trip_time)
+
+    low_price, high_price = get_fair_estimates(distance,pool_price_per_mile,pool_booking_fee,pool_minimum_fair, surge_modifier)
     pool_price_json = create_json('POOL',distance,'26546650-e557-4a7b-86e7-6a3942445247',high_price,low_price,duration)
 
-    low_price, high_price = get_fair_estimates(distance,uberx_price_per_mile,uberx_booking_fee,uberx_minimum_fair)
+    low_price, high_price = get_fair_estimates(distance,uberx_price_per_mile,uberx_booking_fee,uberx_minimum_fair, surge_modifier)
     uberx_price_json = create_json('uberX',distance,'a1111c8c-c720-46c3-8534-2fcdd730040d',high_price,low_price,duration)
 
-    low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair)
+    low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair, surge_modifier)
     uberxl_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
 
-    low_price, high_price = get_fair_estimates(distance,select_price_per_mile,select_booking_fee,select_minimum_fair)
+    low_price, high_price = get_fair_estimates(distance,select_price_per_mile,select_booking_fee,select_minimum_fair, surge_modifier)
     select_price_json = create_json('SELECT',distance,'57c0ff4e-1493-4ef9-a4df-6b961525cf9',high_price,low_price,duration)
 
-    low_price, high_price = get_fair_estimates(distance,uber_black_price_per_mile,uber_black_booking_fee,uber_black_minimum_fair)
+    low_price, high_price = get_fair_estimates(distance,uber_black_price_per_mile,uber_black_booking_fee,uber_black_minimum_fair, surge_modifier)
     uber_black_price_json = create_json('BLACK',distance,'d4abaae7-f4d6-4152-91cc-77523e8165a4',high_price,low_price,duration)
 
     return [
@@ -158,7 +160,27 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     # suggestion - tweak estimate based on time of day, whatever else you might think Uber might use to adjust pricing
 
 
-def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair):
+def calculate_surge_modifier(trip_time):
+  surge_modifier = 1  # no change outside of surge
+
+  morning_surge_start_time_string = '06:00:00'
+  morning_surge_start_time_stamp = time.strptime(morning_surge_start_time_string, '%H:%M:%S')
+  morning_surge_end_time_string = '09:00:00'
+  morning_surge_end_time_stamp = time.strptime(morning_surge_end_time_string, '%H:%M:%S')
+  evening_surge_start_time_string = '15:00:00'
+  evening_surge_start_time_stamp = time.strptime(evening_surge_start_time_string, '%H:%M:%S')
+  evening_surge_end_time_string = '18:00:00'
+  evening_surge_end_time_stamp = time.strptime(evening_surge_end_time_string, '%H:%M:%S')
+
+  if trip_time > morning_surge_start_time_stamp and trip_time < morning_surge_end_time_stamp:
+    surge_modifier = 1.15 # completely random number as I couldn't find anything documenting in a clean way how the do surge pricing
+  if trip_time > evening_surge_start_time_stamp and trip_time < evening_surge_end_time_stamp:
+    surge_modifier = 1.3  # same here
+
+  return surge_modifier
+
+
+def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair, surge_modifier):
   low_price = math.floor(distance * price_per_mile * 0.8)   # round down
   high_price = math.ceil(distance * price_per_mile * 1.2)   # round up
   low_price = low_price + booking_fee
