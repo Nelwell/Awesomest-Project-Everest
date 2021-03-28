@@ -28,3 +28,15 @@ class UberTrip():
 		url = 'http://127.0.0.1:5000/v1.2/estimates/price'
 		data = requests.get(url,params=query).json()
 		self.parse_data(data)
+
+
+	def parse_data(self, uber_trip_details):
+		try:
+			details = []
+			for item in uber_trip_details:
+				if item['display_name'] == "uberX":
+					self.price = round(((float(item['low_estimate']) + float(item['high_estimate'])) / 2),2)	# average of high and low
+					self.duration = self.calculate_duration(float(item['duration']))
+					self.distance = float(item['distance'])
+		except KeyError:
+			raise UberError('Invalid selection.')
