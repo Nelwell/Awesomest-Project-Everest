@@ -127,7 +127,7 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     time_per_mile = 300   # seems to be seconds in the response, I'm making this up too
     duration = math.floor(distance * time_per_mile)
 
-    low_price, high_price = get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair)
+    low_price, high_price = get_fair_estimates(distance,pool_price_per_mile,pool_booking_fee,pool_minimum_fair)
     pool_price_json = {
     "localized_display_name": "POOL",
       "distance": distance,
@@ -140,6 +140,7 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
       "currency_code": "USD"
     }
 
+    low_price, high_price = get_fair_estimates(distance,uberx_price_per_mile,uberx_booking_fee,uberx_minimum_fair)
     uberx_price_json = {
     "localized_display_name": "uberX",
       "distance": distance,
@@ -152,6 +153,7 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
       "currency_code": "USD"
     }
 
+    low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair)
     uberxl_price_json = {
     "localized_display_name": "uberXL",
       "distance": distance,
