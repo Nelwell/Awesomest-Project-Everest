@@ -1,3 +1,8 @@
+import requests
+import time
+from validate import is_valid_json
+
+
 class UberError(Exception):
 	pass
 
@@ -32,6 +37,10 @@ class UberTrip():
 		url = 'http://127.0.0.1:5000/v1.2/estimates/price'
 		data = requests.get(url,params=query).json()
 		self.parse_data(data)
+		# if is_valid_json(data):
+		# 	self.parse_data(data)
+		# else:
+		# 	raise UberError('Invalid JSON.')
 
 
 	def parse_data(self, uber_trip_details):
