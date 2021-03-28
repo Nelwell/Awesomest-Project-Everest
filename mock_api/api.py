@@ -139,7 +139,7 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     uberx_price_json = create_json('uberX',distance,'a1111c8c-c720-46c3-8534-2fcdd730040d',high_price,low_price,duration)
 
     low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair)
-    uberx_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
+    uberxl_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
 
     low_price, high_price = get_fair_estimates(distance,select_price_per_mile,select_booking_fee,select_minimum_fair)
     select_price_json = create_json('SELECT',distance,'57c0ff4e-1493-4ef9-a4df-6b961525cf9',high_price,low_price,duration)
