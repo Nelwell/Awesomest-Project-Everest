@@ -76,6 +76,8 @@ def price_estimate():
     go = validate_lat_lon(go, end_lat, end_lon)
 
     if go:
+      if not trip_time:
+        trip_time = time.localtime()
       if start_lat and start_lon and end_lat and end_lon:
           # create mock response
           response = mock_estimates(start_lon, start_lat, end_long, end_lat)
