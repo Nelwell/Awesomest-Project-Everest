@@ -49,15 +49,16 @@ Example response
 }
 """
 
-import math 
-from flask import Flask 
+import math
+from flask import Flask
 from flask import request, abort, jsonify
 import time
+
 app = Flask(__name__)
+
 
 @app.route('/v1.2/estimates/price')
 def price_estimate():
-
     try:
         start_lat = float(request.args.get('start_latitude', ''))
         start_lon = float(request.args.get('start_longitude', ''))
@@ -66,7 +67,8 @@ def price_estimate():
     except ValueError:
         abort(401, 'Bad request - latitude and longitude must be numbers')
     try:
-        trip_time = time.strptime(request.args.get('time', ''), '%H:%M:%S') # add in ability to time trip for future or ASAP
+        trip_time = time.strptime(request.args.get('time', ''),
+                                  '%H:%M:%S')  # add in ability to time trip for future or ASAP
     except ValueError:
         trip_time = time.localtime()
 
@@ -76,39 +78,38 @@ def price_estimate():
     go = validate_lat_lon(go, end_lat, end_lon)
 
     if go:
-      if start_lat and start_lon and end_lat and end_lon:
-          # create mock response
-          response = mock_estimates(start_lon, start_lat, end_lon, end_lat, trip_time)
-          return jsonify(response)
-      else:
-          abort(401, 'Bad request - include start and end locations')
+        if start_lat and start_lon and end_lat and end_lon:
+            # create mock response
+            response = mock_estimates(start_lon, start_lat, end_lon, end_lat, trip_time)
+            return jsonify(response)
+        else:
+            abort(401, 'Bad request - include start and end locations')
     else:
-      abort(401, 'Bad request - latitude must be equal to or between -90 and 90, longitudes must be equal to or between -180 and 180')
+        abort(401,
+              'Bad request - latitude must be equal to or between -90 and 90, longitudes must be equal to or between -180 and 180')
 
 
 def validate_lat_lon(go, lat, lon):
-  if lat < -90 or lat > 90:
-    go = False
-  elif lon < -180 or lon > 180:
-    go = False
-  
-  return go
+    if lat < -90 or lat > 90:
+        go = False
+    elif lon < -180 or lon > 180:
+        go = False
+
+    return go
 
 
 def mock_estimates(start_lat, start_long, end_lat, end_long, trip_time):
     # about how far apart are the coordinates? 
 
-
-
     lat_diff = abs(start_lat - end_lat)
     long_diff = abs(start_long - end_long)
     # pythagoras! This isn't the actual distance because the world isn't flat and lat-long is not a regular grid.  
-    distance_lat_long = math.sqrt( lat_diff**2 + long_diff**2 )
+    distance_lat_long = math.sqrt(lat_diff ** 2 + long_diff ** 2)
 
-    # one degree differece of latitude is about 70 miles 
+    # one degree difference of latitude is about 70 miles
     # one degree difference in longitude, varies where you are in the world. Going with 70 to keep things simple or would need to do more math
 
-    distance = round(distance_lat_long * 70, 2)   # in miles, to 2 decimal places 
+    distance = round(distance_lat_long * 70, 2)  # in miles, to 2 decimal places
 
     # sample prices taken from https://www.uber.com/us/en/price-estimate/
     pool_booking_fee = 2.20
@@ -123,31 +124,41 @@ def mock_estimates(start_lat, start_long, end_lat, end_long, trip_time):
     select_price_per_mile = 2.81
     uber_black_price_per_mile = 3.81
 
-    pool_minimum_fair = 7.65
-    uberx_minimum_fair = 7.20
-    uberxl_minimum_fair = 9.45
-    select_minimum_fair = 11.45
-    uber_black_minimum_fair = 15.00
+    pool_minimum_fare = 7.65
+    uberx_minimum_fare = 7.20
+    uberxl_minimum_fare = 9.45
+    select_minimum_fare = 11.45
+    uber_black_minimum_fare = 15.00
 
-    time_per_mile = 300   # seems to be seconds in the response, I'm making this up too
+    time_per_mile = 300  # seems to be seconds in the response, I'm making this up too
     duration = math.floor(distance * time_per_mile)
 
     surge_modifier = calculate_surge_modifier(trip_time)
 
-    low_price, high_price = get_fair_estimates(distance,pool_price_per_mile,pool_booking_fee,pool_minimum_fair, surge_modifier)
-    pool_price_json = create_json('POOL',distance,'26546650-e557-4a7b-86e7-6a3942445247',high_price,low_price,duration)
+    low_price, high_price = get_fare_estimates(distance, pool_price_per_mile, pool_booking_fee, pool_minimum_fare,
+                                               surge_modifier)
+    pool_price_json = create_json('POOL', distance, '26546650-e557-4a7b-86e7-6a3942445247', high_price, low_price,
+                                  duration)
 
-    low_price, high_price = get_fair_estimates(distance,uberx_price_per_mile,uberx_booking_fee,uberx_minimum_fair, surge_modifier)
-    uberx_price_json = create_json('uberX',distance,'a1111c8c-c720-46c3-8534-2fcdd730040d',high_price,low_price,duration)
+    low_price, high_price = get_fare_estimates(distance, uberx_price_per_mile, uberx_booking_fee, uberx_minimum_fare,
+                                               surge_modifier)
+    uberx_price_json = create_json('uberX', distance, 'a1111c8c-c720-46c3-8534-2fcdd730040d', high_price, low_price,
+                                   duration)
 
-    low_price, high_price = get_fair_estimates(distance,uberxl_price_per_mile,uberxl_booking_fee,uberxl_minimum_fair, surge_modifier)
-    uberxl_price_json = create_json('uberXL',distance,'821415d8-3bd5-4e27-9604-194e4359a449',high_price,low_price,duration)
+    low_price, high_price = get_fare_estimates(distance, uberxl_price_per_mile, uberxl_booking_fee, uberxl_minimum_fare,
+                                               surge_modifier)
+    uberxl_price_json = create_json('uberXL', distance, '821415d8-3bd5-4e27-9604-194e4359a449', high_price, low_price,
+                                    duration)
 
-    low_price, high_price = get_fair_estimates(distance,select_price_per_mile,select_booking_fee,select_minimum_fair, surge_modifier)
-    select_price_json = create_json('SELECT',distance,'57c0ff4e-1493-4ef9-a4df-6b961525cf9',high_price,low_price,duration)
+    low_price, high_price = get_fare_estimates(distance, select_price_per_mile, select_booking_fee, select_minimum_fare,
+                                               surge_modifier)
+    select_price_json = create_json('SELECT', distance, '57c0ff4e-1493-4ef9-a4df-6b961525cf9', high_price, low_price,
+                                    duration)
 
-    low_price, high_price = get_fair_estimates(distance,uber_black_price_per_mile,uber_black_booking_fee,uber_black_minimum_fair, surge_modifier)
-    uber_black_price_json = create_json('BLACK',distance,'d4abaae7-f4d6-4152-91cc-77523e8165a4',high_price,low_price,duration)
+    low_price, high_price = get_fare_estimates(distance, uber_black_price_per_mile, uber_black_booking_fee,
+                                               uber_black_minimum_fare, surge_modifier)
+    uber_black_price_json = create_json('BLACK', distance, 'd4abaae7-f4d6-4152-91cc-77523e8165a4', high_price,
+                                        low_price, duration)
 
     return [
         pool_price_json,
@@ -161,49 +172,49 @@ def mock_estimates(start_lat, start_long, end_lat, end_long, trip_time):
 
 
 def calculate_surge_modifier(trip_time):
-  surge_modifier = 1  # no change outside of surge
+    surge_modifier = 1  # no change outside of surge
 
-  morning_surge_start_time_string = '06:00:00'
-  morning_surge_start_time_stamp = time.strptime(morning_surge_start_time_string, '%H:%M:%S')
-  morning_surge_end_time_string = '09:00:00'
-  morning_surge_end_time_stamp = time.strptime(morning_surge_end_time_string, '%H:%M:%S')
-  evening_surge_start_time_string = '15:00:00'
-  evening_surge_start_time_stamp = time.strptime(evening_surge_start_time_string, '%H:%M:%S')
-  evening_surge_end_time_string = '18:00:00'
-  evening_surge_end_time_stamp = time.strptime(evening_surge_end_time_string, '%H:%M:%S')
+    morning_surge_start_time_string = '06:00:00'
+    morning_surge_start_time_stamp = time.strptime(morning_surge_start_time_string, '%H:%M:%S')
+    morning_surge_end_time_string = '09:00:00'
+    morning_surge_end_time_stamp = time.strptime(morning_surge_end_time_string, '%H:%M:%S')
+    evening_surge_start_time_string = '15:00:00'
+    evening_surge_start_time_stamp = time.strptime(evening_surge_start_time_string, '%H:%M:%S')
+    evening_surge_end_time_string = '18:00:00'
+    evening_surge_end_time_stamp = time.strptime(evening_surge_end_time_string, '%H:%M:%S')
 
-  if trip_time > morning_surge_start_time_stamp and trip_time < morning_surge_end_time_stamp:
-    surge_modifier = 1.15 # completely random number as I couldn't find anything documenting in a clean way how the do surge pricing
-  if trip_time > evening_surge_start_time_stamp and trip_time < evening_surge_end_time_stamp:
-    surge_modifier = 1.3  # same here
+    if trip_time > morning_surge_start_time_stamp and trip_time < morning_surge_end_time_stamp:
+        surge_modifier = 1.15  # completely random number as I couldn't find anything documenting in a clean way how they do surge pricing
+    if trip_time > evening_surge_start_time_stamp and trip_time < evening_surge_end_time_stamp:
+        surge_modifier = 1.3  # same here
 
-  return surge_modifier
-
-
-def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair, surge_modifier):
-  low_price = math.floor(distance * price_per_mile * 0.8)   # round down
-  high_price = math.ceil(distance * price_per_mile * 1.2)   # round up
-  low_price = low_price + booking_fee
-  high_price = high_price + booking_fee
-  if low_price < minimum_fair:
-    low_price = minimum_fair
-  if high_price < minimum_fair:
-    high_price = minimum_fair
-
-  return low_price, high_price
+    return surge_modifier
 
 
-def create_json(display_name,distance,product_id,high_price,low_price,duration):
-  json = {
-  "localized_display_name": display_name,
-    "distance": distance,
-    "display_name": display_name,
-    "product_id": product_id,
-    "high_estimate": high_price,
-    "low_estimate": low_price,
-    "duration": duration,
-    "estimate": f"${low_price}-{high_price}",
-    "currency_code": "USD"
-  }
+def get_fare_estimates(distance, price_per_mile, booking_fee, minimum_fare, surge_modifier):
+    low_price = math.floor(distance * price_per_mile * 0.8)  # round down
+    high_price = math.ceil(distance * price_per_mile * 1.2)  # round up
+    low_price = low_price + booking_fee
+    high_price = high_price + booking_fee
+    if low_price < minimum_fare:
+        low_price = minimum_fare
+    if high_price < minimum_fare:
+        high_price = minimum_fare
 
-  return json
+    return low_price, high_price
+
+
+def create_json(display_name, distance, product_id, high_price, low_price, duration):
+    json = {
+        "localized_display_name": display_name,
+        "distance": distance,
+        "display_name": display_name,
+        "product_id": product_id,
+        "high_estimate": high_price,
+        "low_estimate": low_price,
+        "duration": duration,
+        "estimate": f"${low_price}-{high_price}",
+        "currency_code": "USD"
+    }
+
+    return json
