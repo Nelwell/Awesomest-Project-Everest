@@ -52,13 +52,13 @@ def get_locations():
 
 def get_wx_json(start_lat, start_lon, end_lat, end_lon, wx_key):
     try:
-        # start location data
+        # start location weather data
         start_query = {'lat': start_lat, 'lon': start_lon, 'units': 'imperial', 'appid': wx_key}
         start_response = requests.get(url, params=start_query)
         start_response.raise_for_status()  # Raise exception for 400 or 500 errors
         start_wx_data = start_response.json()  # this
 
-        # end location data
+        # end location weather data
         end_query = {'lat': end_lat, 'lon': end_lon, 'units': 'imperial', 'appid': wx_key}
         end_response = requests.get(url, params=end_query)
         end_response.raise_for_status()  # Raise exception for 400 or 500 errors
