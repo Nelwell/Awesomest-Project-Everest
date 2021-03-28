@@ -1,7 +1,8 @@
 import unittest
 from unittest import TestCase
 
-from api.location import Location
+from api import location
+from ui.objects import Location
 
 
 class TestLatLonConverter(TestCase):
@@ -12,7 +13,7 @@ class TestLatLonConverter(TestCase):
         actual_lat, actual_lon = 44.972659, -93.28372334243436  # MCTC lat/lon
 
         # Action - runs example address through conversion method
-        expected_lat, expected_lon = Location.convert_to_lat_lon(example_address)
+        expected_lat, expected_lon = location.convert_to_lat_lon(example_address)
 
         # Assert - checks actual lat/lon matches converted lat/lon of example address
         self.assertEqual((expected_lat, expected_lon), (actual_lat, actual_lon))
