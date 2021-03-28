@@ -68,7 +68,7 @@ def price_estimate():
     try:
         trip_time = time.strptime(request.args.get('time', ''), '%H:%M:%S')
     except ValueError:
-        abort(401, 'Bad request - time must be in format HH:MM:SS on a 24 hour clock')
+        trip_time = time.localtime()
 
     # TODO verify lat and long values are sensible numbers so longitudes -180 -> +180, latitudes -90 -> +90
     go = True
@@ -76,8 +76,6 @@ def price_estimate():
     go = validate_lat_lon(go, end_lat, end_lon)
 
     if go:
-      if not trip_time:
-        trip_time = time.localtime()
       if start_lat and start_lon and end_lat and end_lon:
           # create mock response
           response = mock_estimates(start_lon, start_lat, end_long, end_lat)
