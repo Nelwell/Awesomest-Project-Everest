@@ -138,6 +138,7 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
 
     return [
         pool_price_json,
+        uberx_price_json,
         uberxl_price_json,
         # todo other products
     ]
