@@ -3,26 +3,40 @@ import os
 import requests
 import logging
 from requests.models import Response
-#from ..validation.validate import *
+from validate import *
+from api.validate import *
+
 
 key = os.environ.get("bing_maps_key")
-
 # def foo(bar):
 #     if (len(bar) > 1):
 #         print(bar)
 
 class BusTrip:
-    start_location = None
-    end_location = None
-    trip = None
-    start_time = None
-    eta = None
-    cost = None
+    #hardcoded data
     mode = 'Transit'
-    
-    
     units = 'imperial'
 
+    #Set on creation
+    start_location = None
+    end_location = None
+    start_time = None
+
+
+    #Set on data conversion from json to BusTrip object
+    trip = None
+    trip_start_time = None
+    eta = None
+    cost = None
+    start_coordinates = None
+    end_coordinates = None
+    duration = None
+    distance = None
+
+    
+    
+
+    #Set start and end location and requested start time in init
     def __init__(self, start_location, end_location, start_time): #Format: "Golden Gate Bridge", "Fisherman's Wharf", '05:42:00'
         if start_location != None and end_location != None and start_time !=None:
             self.start_location = start_location
@@ -31,44 +45,57 @@ class BusTrip:
             self.refresh_trip()
         
     def __str__(self) -> str:
-        return f'Start: {self.start_location} End: {self.end_location} Time: {self.time} Cost: {self.cost}'
+        return f'Start: {self.start_location}, End: {self.end_location}, Duration: {self.duration}, Arrival time: {self.eta}, Cost: {self.cost}'
 
+
+    #allows trip to be recreated using new start location
     def update_start(self, new_location):
         self.start_location = new_location
         if self.start_location != None:
             self.refresh_trip()
 
+    #allows trip to be recreated using new start time
     def update_start_time(self, new_time):
         self.start_time = new_time
         self.refresh_trip()
 
+    #allows trip to be recreated using new end location
     def update_end(self, new_location):
         self.end_location = new_location
         if self.end_location != None:
             self.refresh_trip()
 
+
+    #Transfers data from json to BusTrip object
+    def extract_json(self,data):
+        self.trip = data
+        self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.cost = self.trip['resourceSets']['resources']['routeLegs'][0]['cost']
+        # self.trip_start_time = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.start_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.end_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.duration = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        # self.distance = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+
+
+    #Pulls JSON of trip from bing.
     def refresh_trip(self):
-        #TODO extract json Data
         try:
-            print(self.start_location, self.end_location, self.start_time)
             query = {'travelMode': self.mode, 'waypoint.1': self.start_location, 'waypoint.2':self.end_location, 'dateTime':self.start_time, 'key': key}
             url = 'http://dev.virtualearth.net/REST/v1/Routes/'
-            print(requests.get(url, params=query))
             response = requests.get(url, params=query)
-            print(f'Request sent:\n{response}')
             response.raise_for_status()
             data = response.json()
-            logging.info(f'Data recieved:\n{data}')
-            print(data)
-            # if is_valid_json(data):
-            #     logging.info(f'Data recieved:\n{data}')
-            #     return data, None
+            #self.extract_json(data)
 
-
+            #Should be using json validator. Json validator is not currently working
+            if is_valid_json(data):
+                logging.info(f'Data recieved:\n{data}')
+                self.extract_json(data)
         except Exception as e:
            logging.exception(e)
            logging.exception(response.text)
            return None, e
 
-# print(data)
-var = BusTrip("Golden Gate Bridge", "Fisherman's Wharf", '05:42:00')
