@@ -159,8 +159,8 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
 
 
 def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair):
-  low_price = math.floor(distance * pool_price_per_mile * 0.8)   # round down
-  high_price = math.ceil(distance * pool_price_per_mile * 1.2)   # round up
+  low_price = math.floor(distance * price_per_mile * 0.8)   # round down
+  high_price = math.ceil(distance * price_per_mile * 1.2)   # round up
   low_price = low_price + booking_fee
   high_price = high_price + booking_fee
   if low_price < minimum_fair:
