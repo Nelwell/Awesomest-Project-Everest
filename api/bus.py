@@ -4,13 +4,10 @@ import requests
 import logging
 from requests.models import Response
 from validate import *
-from api.validate import *
+from api.validate import is_valid_json
 
 
 key = os.environ.get("bing_maps_key")
-# def foo(bar):
-#     if (len(bar) > 1):
-#         print(bar)
 
 class BusTrip:
     #hardcoded data
@@ -31,10 +28,7 @@ class BusTrip:
     start_coordinates = None
     end_coordinates = None
     duration = None
-    distance = None
-
-    
-    
+    distance = None    
 
     #Set start and end location and requested start time in init
     def __init__(self, start_location, end_location, start_time): #Format: "Golden Gate Bridge", "Fisherman's Wharf", '05:42:00'
@@ -46,7 +40,6 @@ class BusTrip:
         
     def __str__(self) -> str:
         return f'Start: {self.start_location}, End: {self.end_location}, Duration: {self.duration}, Arrival time: {self.eta}, Cost: {self.cost}'
-
 
     #allows trip to be recreated using new start location
     def update_start(self, new_location):
@@ -67,17 +60,15 @@ class BusTrip:
 
 
     #Transfers data from json to BusTrip object
-    def extract_json(self,data):
+    def extract_json(self, data):
         self.trip = data
         self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.cost = self.trip['resourceSets']['resources']['routeLegs'][0]['cost']
-        # self.trip_start_time = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.start_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.end_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.duration = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
-        # self.distance = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        self.trip_start_time = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['startTime']
+        self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['endTime']
+        self.start_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualStart']['coordinates']
+        self.end_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualEnd']['coordinates']
+        self.duration = self.trip['resourceSets'][0]['resources'][0]['travelDuration']
+        self.distance = self.trip['resourceSets'][0]['resources'][0]['travelDistance']
 
 
     #Pulls JSON of trip from bing.
@@ -88,9 +79,8 @@ class BusTrip:
             response = requests.get(url, params=query)
             response.raise_for_status()
             data = response.json()
-            #self.extract_json(data)
 
-            #Should be using json validator. Json validator is not currently working
+            #Uses json validator
             if is_valid_json(data):
                 logging.info(f'Data recieved:\n{data}')
                 self.extract_json(data)
@@ -99,3 +89,8 @@ class BusTrip:
            logging.exception(response.text)
            return None, e
 
+trip = BusTrip("Mall of America", "Target Field", "9:00:00")
+
+pass
+
+print(trip)
