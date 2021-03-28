@@ -66,7 +66,7 @@ def price_estimate():
     except ValueError:
         abort(401, 'Bad request - latitude and longitude must be numbers')
     try:
-        trip_time = time.strptime(request.args.get('time', ''), '%H:%M:%S')
+        trip_time = time.strptime(request.args.get('time', ''), '%H:%M:%S') # add in ability to time trip for future or ASAP
     except ValueError:
         trip_time = time.localtime()
 
