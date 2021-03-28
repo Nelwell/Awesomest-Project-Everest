@@ -1,0 +1,578 @@
+{
+"authenticationResultCode": "ValidCredentials",
+"brandLogoUri": "http://dev.virtualearth.net/Branding/logo_powered_by.png",
+"copyright": "Copyright © 2021 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+"resourceSets": [
+{
+"estimatedTotal": 1,
+"resources": [
+{
+"__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+"bbox": [
+37.79849,
+-122.477803,
+37.812166,
+-122.415442
+],
+"id": "v70,h-411502724,i0,a0,cen-US,dAFhL_jDx2Ag1,y1,s1,m4,o1,t0,wjjulg_XnQkDlY3eBkp5ewA2~AfhjDZup6FsCAADgATCbfjwA0~R29sZGVuIEdhdGUgQnJpZGdlLCBDQQ2~~~~~~~~v12,wDB6mfXPnQkAh5_1_nJpewA2~AfhjDZshTlwCAADgAQAAgD8A0~RmlzaGVybWFuJ3MgV2hhcmYsIENB0~~~~~~~~v12,k1",
+"distanceUnit": "Kilometer",
+"durationUnit": "Second",
+"routeLegs": [
+{
+"actualEnd": {
+"type": "Point",
+"coordinates": [
+37.808211,
+-122.415805
+]
+},
+"actualStart": {
+"type": "Point",
+"coordinates": [
+37.812166,
+-122.477803
+]
+},
+"alternateVias": [],
+"cost": 0,
+"endLocation": {
+"bbox": [
+37.804127,
+-122.42672,
+37.812889,
+-122.404083
+],
+"name": "Fisherman's Wharf, CA",
+"point": {
+"type": "Point",
+"coordinates": [
+37.808212,
+-122.415802
+]
+},
+"address": {
+"adminDistrict": "CA",
+"adminDistrict2": "San Francisco County",
+"countryRegion": "United States",
+"formattedAddress": "Fisherman's Wharf, CA"
+},
+"confidence": "High",
+"entityType": "Neighborhood",
+"geocodePoints": [
+{
+"type": "Point",
+"coordinates": [
+37.808212,
+-122.415802
+],
+"calculationMethod": "Rooftop",
+"usageTypes": [
+"Display"
+]
+}
+],
+"matchCodes": [
+"Ambiguous"
+]
+},
+"endTime": "/Date(1616886568000-0700)/",
+"itineraryItems": [
+{
+"compassDirection": "",
+"details": [
+{
+"endPathIndices": [
+20
+],
+"maneuverType": "Walk",
+"mode": "Transit",
+"roadType": "NotApplicable",
+"startPathIndices": [
+0
+]
+}
+],
+"exit": "",
+"iconType": "Walk",
+"instruction": {
+"formattedText": null,
+"maneuverType": "DepartStart",
+"text": "Walk from Golden Gate Bridge, CA to Golden Gate Bridge Toll Plaza"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.812166,
+-122.477803
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"tollZone": "",
+"transitTerminus": "",
+"travelDistance": 1.102,
+"travelDuration": 793,
+"travelMode": "Transit"
+},
+{
+"childItineraryItems": [
+{
+"compassDirection": "",
+"details": [
+{
+"maneuverType": "TransitDepart",
+"mode": "Transit",
+"names": [
+"Golden Gate Bridge Toll Plaza"
+],
+"roadType": "None"
+}
+],
+"exit": "",
+"iconType": "None",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TransitDepart",
+"text": "Depart from Golden Gate Bridge Toll Plaza"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.806715,
+-122.475476
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"time": "/Date(1616884260000-0700)/",
+"tollZone": "",
+"transitStopId": 1210194,
+"transitTerminus": "",
+"travelDistance": 0,
+"travelDuration": 0,
+"travelMode": "Transit",
+"tripId": 4791342
+},
+{
+"compassDirection": "",
+"details": [
+{
+"maneuverType": "TransitArrive",
+"mode": "Transit",
+"names": [
+"Van Ness Ave & Filbert St"
+],
+"roadType": "None"
+}
+],
+"exit": "",
+"iconType": "None",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TransitArrive",
+"text": "Arrive at Van Ness Ave & Filbert St"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.799296,
+-122.4243
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"time": "/Date(1616885460000-0700)/",
+"tollZone": "",
+"transitStopId": 1927091,
+"transitTerminus": "",
+"travelDistance": 0,
+"travelDuration": 0,
+"travelMode": "Transit",
+"tripId": 4791342
+}
+],
+"compassDirection": "",
+"details": [
+{
+"endPathIndices": [
+40
+],
+"maneuverType": "TakeTransit",
+"mode": "Transit",
+"roadType": "NotApplicable",
+"startPathIndices": [
+20
+]
+}
+],
+"exit": "",
+"hints": [
+{
+"hintType": "PreviousTransitStop",
+"text": "Your stop is next after Lombard St & Fillmore St"
+},
+{
+"hintType": "NextTransitStop",
+"text": "If you reach Van Ness Ave & Pacific Ave, you've gone too far"
+}
+],
+"iconType": "Bus",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TakeTransit",
+"text": "Bus: 101 - Route 101 Southbound - San Francisco"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.806715,
+-122.475476
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"tollZone": "",
+"transitLine": {
+"abbreviatedName": "101",
+"agencyId": 1178,
+"agencyName": "Golden Gate Transit",
+"bookingUri": "https://www.goldengate.org/",
+"lineColor": 3368703,
+"lineTextColor": 16777215,
+"phoneNumber": "(415) 455-2000)",
+"providerInfo": "Service provider: Golden Gate Transit - (415) 455-2000)",
+"scheduleUri": "https://www.goldengate.org/",
+"transportType": 1,
+"uri": "http://www.goldengate.org",
+"verboseName": "Santa Rosa - San Francisco",
+"version": "Mar 23 2021  5:17PM"
+},
+"transitTerminus": "Route 101 Southbound - San Francisco",
+"travelDistance": 5.16,
+"travelDuration": 1200,
+"travelMode": "Transit"
+},
+{
+"compassDirection": "",
+"details": [
+{
+"endPathIndices": [
+44
+],
+"maneuverType": "Walk",
+"mode": "Transit",
+"roadType": "NotApplicable",
+"startPathIndices": [
+40
+]
+}
+],
+"exit": "",
+"hints": [
+{
+"hintType": "TimeToMakeConnection",
+"text": "You have 8 minutes to make this connection"
+}
+],
+"iconType": "Walk",
+"instruction": {
+"formattedText": null,
+"maneuverType": "Walk",
+"text": "Walk from Van Ness Ave & Filbert St to Van Ness Ave & Union St"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.799296,
+-122.4243
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"tollZone": "",
+"transitTerminus": "",
+"travelDistance": 0.098,
+"travelDuration": 71,
+"travelMode": "Transit"
+},
+{
+"childItineraryItems": [
+{
+"compassDirection": "",
+"details": [
+{
+"maneuverType": "TransitDepart",
+"mode": "Transit",
+"names": [
+"Van Ness Ave & Union St"
+],
+"roadType": "None"
+}
+],
+"exit": "",
+"iconType": "None",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TransitDepart",
+"text": "Depart from Van Ness Ave & Union St"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.79849,
+-122.42393
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"time": "/Date(1616885940000-0700)/",
+"tollZone": "",
+"transitStopId": 890680,
+"transitTerminus": "",
+"travelDistance": 0,
+"travelDuration": 0,
+"travelMode": "Transit",
+"tripId": 16313909
+},
+{
+"compassDirection": "",
+"details": [
+{
+"maneuverType": "TransitArrive",
+"mode": "Transit",
+"names": [
+"North Point St & Jones St"
+],
+"roadType": "None"
+}
+],
+"exit": "",
+"iconType": "None",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TransitArrive",
+"text": "Arrive at North Point St & Jones St"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.80605,
+-122.41718
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"time": "/Date(1616886314000-0700)/",
+"tollZone": "",
+"transitStopId": 889886,
+"transitTerminus": "",
+"travelDistance": 0,
+"travelDuration": 0,
+"travelMode": "Transit",
+"tripId": 16313909
+}
+],
+"compassDirection": "",
+"details": [
+{
+"endPathIndices": [
+49
+],
+"maneuverType": "TakeTransit",
+"mode": "Transit",
+"roadType": "NotApplicable",
+"startPathIndices": [
+44
+]
+}
+],
+"exit": "",
+"hints": [
+{
+"hintType": "PreviousTransitStop",
+"text": "Your stop is next after North Point St & Hyde St"
+},
+{
+"hintType": "NextTransitStop",
+"text": "If you reach North Point St & Mason St, you've gone too far"
+}
+],
+"iconType": "Bus",
+"instruction": {
+"formattedText": null,
+"maneuverType": "TakeTransit",
+"text": "Bus: 49 - Fisherman's Wharf"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.79849,
+-122.42393
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"tollZone": "",
+"transitLine": {
+"abbreviatedName": "49",
+"agencyId": 2664,
+"agencyName": "San Francisco Municipal Transportation Agency",
+"bookingUri": "",
+"lineColor": 16777215,
+"phoneNumber": "",
+"providerInfo": "Service provider: San Francisco Municipal Transportation Agency ",
+"scheduleUri": "",
+"transportType": 1,
+"uri": "https://SFMTA.com",
+"verboseName": "VAN NESS-MISSION",
+"version": "Mar 23 2021  5:17PM"
+},
+"transitTerminus": "Fisherman's Wharf",
+"travelDistance": 1.493,
+"travelDuration": 374,
+"travelMode": "Transit",
+"warnings": [
+{
+"severity": "Moderate",
+"text": "Public transit may be impacted by COVID-19. Some agencies recommend limiting public transit use.",
+"warningType": "ScheduleImpacted"
+}
+]
+},
+{
+"compassDirection": "",
+"details": [
+{
+"endPathIndices": [
+52
+],
+"maneuverType": "Walk",
+"mode": "Transit",
+"roadType": "NotApplicable",
+"startPathIndices": [
+49
+]
+}
+],
+"exit": "",
+"iconType": "Walk",
+"instruction": {
+"formattedText": null,
+"maneuverType": "ArriveFinish",
+"text": "Walk from North Point St & Jones St to Fisherman's Wharf, CA"
+},
+"isRealTimeTransit": false,
+"maneuverPoint": {
+"type": "Point",
+"coordinates": [
+37.80605,
+-122.41718
+]
+},
+"realTimeTransitDelay": 0,
+"sideOfStreet": "Unknown",
+"tollZone": "",
+"transitTerminus": "",
+"travelDistance": 0.354,
+"travelDuration": 254,
+"travelMode": "Transit"
+}
+],
+"routeRegion": "Transit-WDTT",
+"routeSubLegs": [
+{
+"endWaypoint": {
+"type": "Point",
+"coordinates": [
+37.808211,
+-122.415805
+],
+"description": "Fisherman's Wharf, CA",
+"isVia": false,
+"locationIdentifier": "1|248|99|13|155|33|78|92|2|0|0|224|1|0|0|128|63|0|37.808211,-122.415805",
+"routePathIndex": 52
+},
+"startWaypoint": {
+"type": "Point",
+"coordinates": [
+37.812166,
+-122.477803
+],
+"description": "Golden Gate Bridge, CA",
+"isVia": false,
+"locationIdentifier": "1|248|99|13|155|169|232|91|2|0|0|224|1|48|155|126|60|0|37.812166,-122.477803",
+"routePathIndex": 0
+},
+"travelDistance": 8.305,
+"travelDuration": 3101
+}
+],
+"startLocation": {
+"bbox": [
+37.808317,
+-122.48421,
+37.816042,
+-122.471173
+],
+"name": "Golden Gate Bridge, CA",
+"point": {
+"type": "Point",
+"coordinates": [
+37.81218,
+-122.477692
+]
+},
+"address": {
+"adminDistrict": "CA",
+"adminDistrict2": "San Francisco County",
+"countryRegion": "United States",
+"formattedAddress": "Golden Gate Bridge, CA",
+"locality": "San Francisco"
+},
+"confidence": "High",
+"entityType": "LandmarkBuilding",
+"geocodePoints": [
+{
+"type": "Point",
+"coordinates": [
+37.81218,
+-122.477692
+],
+"calculationMethod": "Rooftop",
+"usageTypes": [
+"Display"
+]
+}
+],
+"matchCodes": [
+"Ambiguous"
+]
+},
+"startTime": "/Date(1616883467000-0700)/",
+"travelDistance": 8.305,
+"travelDuration": 3101,
+"travelMode": "Transit"
+}
+],
+"trafficCongestion": "Unknown",
+"trafficDataUsed": "None",
+"travelDistance": 8.305,
+"travelDuration": 3101,
+"travelDurationTraffic": 0,
+"travelMode": "Transit"
+}
+]
+}
+],
+"statusCode": 200,
+"statusDescription": "OK",
+"traceId": "d3fb1833d4094fd3a37a4674c67b77e4|CH0000108A|0.0.0.0|CH000014BE, Leg0-CH00002036|Ref A: 63456F53319244B18FD3D7A80B9DFEA3 Ref B: CH1EDGE1305 Ref C: 2021-03-28T05:55:34Z|Ref A: 0765EB2A60434E2A9D68BBC030F980CD Ref B: CH1EDGE1320 Ref C: 2021-03-28T05:55:34Z"
+}

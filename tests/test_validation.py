@@ -1,6 +1,7 @@
 import unittest
-from validation.validate import *
-
+import json
+from validate import *
+from api.validate import *
 
 class ValidatorTest(unittest.TestCase):
 
@@ -70,4 +71,9 @@ class ValidatorTest(unittest.TestCase):
         #Check valid json - https://pynative.com/python-json-validation/
         test_json = """{"name": "jane doe", "salary": 9000, "email": "jane.doe@pynative.com"}"""
         response = is_valid_json(test_json)
+        self.assertTrue(response)
+
+        with open('tests/test.json') as test_json:
+            test_data = json.load(test_json)
+        response = is_valid_json(test_data)
         self.assertTrue(response)
