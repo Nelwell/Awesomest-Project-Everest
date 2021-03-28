@@ -20,10 +20,9 @@ class BusTripTest(unittest.TestCase):
     def test_extract_json(self):
         #Test proper extraction of data from json file
         with open('tests/test.json') as test_json:
-            test_data = test_json
+            test_trip = json.load(test_json)
         test_cost = 0
-        test_trip = extract_json(test_data)
-        response = test_trip.cost = test_trip.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
+        response = test_trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
         self.assertIs(test_cost,response,"This test was expecting {test_cost} but recieved {response}.")
         # test_trip.cost = test_trip.trip['resourceSets']['resources']['routeLegs'][0]['cost']
         # test_trip.trip_start_time = test_trip.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost']
