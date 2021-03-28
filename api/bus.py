@@ -3,9 +3,14 @@ import os
 import requests
 import logging
 from requests.models import Response
-from validation.validate import *
+#from validation.validate import is_valid_json
+from .validation.validate import *
 
 key = os.environ.get("bing_maps_key")
+
+def foo(bar):
+    if (len(bar) > 1):
+        print(bar)
 
 class BusTrip:
     start_location = None
@@ -76,9 +81,11 @@ url = f'%http://dev.virtualearth.net/REST/V1/Routes/Transit?wp.0=Golden%20Gate%2
 url = 'http://dev.virtualearth.net/REST/v1/Routes'
 response = requests.get(url, params=query)
 print(type(response))
-# logging.debug(f'Request sent:\n{response}')
-# response.raise_for_status()
-# data = response.json()
-# logging.info(f'Data recieved:\n{data}')
+logging.debug(f'Request sent:\n{response}')
+response.raise_for_status()
+data = response.json()
+logging.info(f'Data recieved:\n{data}')
 
 # print(data)
+var = BusTrip("Golden Gate Bridge", "Fisherman's Wharf", dt.now())
+print(var)
