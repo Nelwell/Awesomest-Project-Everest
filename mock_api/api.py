@@ -52,6 +52,7 @@ Example response
 import math 
 from flask import Flask 
 from flask import request, abort, jsonify
+import time
 app = Flask(__name__)
 
 @app.route('/v1.2/estimates/price')
@@ -64,6 +65,10 @@ def price_estimate():
         end_lon = float(request.args.get('end_longitude', ''))
     except ValueError:
         abort(401, 'Bad request - latitude and longitude must be numbers')
+    try:
+        trip_time = time.strptime(request.args.get('time', ''), '%H:%M:%S')
+    except ValueError:
+        abort(401, 'Bad request - time must be in format HH:MM:SS on a 24 hour clock')
 
     # TODO verify lat and long values are sensible numbers so longitudes -180 -> +180, latitudes -90 -> +90
     go = True
@@ -72,7 +77,7 @@ def price_estimate():
 
     if go:
       if start_lat and start_lon and end_lat and end_lon:
-          # create mock response 
+          # create mock response
           response = mock_estimates(start_lon, start_lat, end_long, end_lat)
           return jsonify(response)
       else:
