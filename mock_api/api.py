@@ -125,12 +125,9 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     uber_black_minimum_fair = 15.00
 
     time_per_mile = 300   # seems to be seconds in the response, I'm making this up too
-
-    low_price = math.floor(distance * pool_price_per_mile * 0.8)   # round down
-    high_price = math.ceil(distance * pool_price_per_mile * 1.2)   # round up
-
     duration = math.floor(distance * time_per_mile)
 
+    low_price, high_price = get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair)
     pool_price_json = {
     "localized_display_name": "POOL",
       "distance": distance,
@@ -174,3 +171,12 @@ def mock_estimates(start_lat, start_long, end_lat, end_long):
     ]
 
     # suggestion - tweak estimate based on time of day, whatever else you might think Uber might use to adjust pricing
+
+
+def get_fair_estimates(distance,price_per_mile,booking_fee,minimum_fair):
+  low_price = math.floor(distance * pool_price_per_mile * 0.8)   # round down
+  high_price = math.ceil(distance * pool_price_per_mile * 1.2)   # round up
+
+  return low_price, high_price
+
+
