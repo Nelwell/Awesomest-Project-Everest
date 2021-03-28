@@ -21,7 +21,10 @@ class BusTrip:
 
     def __init__(self, start_location, end_location, start_time):
         if start_location != None and end_location != None and start_time !=None:
-            data, error = self.refresh_trip()
+            self.start_location = start_location
+            self.end_location = end_location
+            self.start_time = start_time
+            self.refresh_trip()
         
 
 
@@ -36,6 +39,11 @@ class BusTrip:
     def update_start_time(self, new_time):
         self.start_time = new_time
         self.refresh_trip()
+
+    def update_end(self, new_location):
+        self.end_location = new_location
+        if self.end_location != None:
+            self.refresh_trip()
 
     def refresh_trip(self):
         #TODO Make API all
