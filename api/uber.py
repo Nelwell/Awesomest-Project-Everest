@@ -1,3 +1,7 @@
+class UberError(Exception):
+	pass
+
+
 class UberTrip():
 	start_lat = None
 	start_lon = None
