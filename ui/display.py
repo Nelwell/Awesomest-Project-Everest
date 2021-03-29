@@ -1,5 +1,7 @@
 import ui.objects
 from api import location
+import time
+from datetime import datetime
 
 
 def display_menu(menu):
@@ -21,9 +23,9 @@ def message(msg):
     print(msg)
 
 
-def get_trip_info():
-    """ Create new Location object from name and email provided by user
-     :returns: an Artist created from the name and email. """
+def get_trip_locs():
+    """ Create new start/end Location objects from addresses provided by user
+     :returns: start and end Location objects created from the given addresses. """
     start_st_address, start_city, start_state = '', '', ''
     end_st_address, end_city, end_state = '', '', ''
     while len(start_st_address) == 0:
@@ -52,6 +54,19 @@ def get_trip_info():
     end_location = ui.objects.Location(end_lat, end_lon)
 
     return start_location, end_location
+
+
+def get_uber_times(start_lat_lon, end_lat_lon):
+    convert_to_sec = 60 * 60
+    num_hours = int(input('In how many hours do you plan to leave? '))
+    seconds_to_departure = num_hours*convert_to_sec
+    epoch_time_in_sec = int(time.time())
+    departure_in_epoch_time = epoch_time_in_sec + seconds_to_departure
+    # print(time.gmtime(epoch_time_in_sec))
+    # etd_uber = time.strftime('%H:%M:%S', departure_in_epoch_time)
+    # print(etd_uber)
+
+    # return etd_uber, eta_uber
 
 
 def display_data():
