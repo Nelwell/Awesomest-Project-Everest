@@ -5,3 +5,4 @@ db/*.sqlite
 Project 4 Planning Worksheet Spring 2021 Group4.docx
 .vscode/launch.json
 .vscode/settings.json
+tests/testMOA.json
