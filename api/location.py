@@ -9,7 +9,7 @@ Holds city, state, St address and converts to lat/lon for API calls
 def convert_to_lat_lon(address):
     # adapted from https://towardsdatascience.com/geocode-with-python-161ec1e62b89
     locator = Nominatim(user_agent='carless-app')
-    location = locator.geocode(f'{address}, {}, {}')
+    location = locator.geocode(address)
     lat, lon = location.latitude, location.longitude
     return lat, lon
 
