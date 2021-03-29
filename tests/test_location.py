@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
 
-from api.location import Location
+from ui.objects import Location
 
 
 class TestLatLonConverter(TestCase):
