@@ -17,34 +17,6 @@ def get_weather_data(start_lat, start_lon, end_lat, end_lon, start_address, end_
     return start_weather_data, end_weather_data
 
 
-# def get_locations():
-#     start_st_address, start_city, start_state = '', '', ''
-#     end_st_address, end_city, end_state = '', '', ''
-#     while len(start_st_address) == 0:
-#         start_st_address = input('Enter the departure street address: ').title().strip()
-#
-#     while len(start_city) == 0:
-#         start_city = input('Enter departure the city: ').title().strip()
-#
-#     while len(start_state) != 2 or not start_state.isalpha():
-#         start_state = input('Enter the 2-letter departure state abbreviation: ').upper().strip()
-#
-#     while len(end_st_address) == 0:
-#         end_st_address = input('Enter the destination street address: ').title().strip()
-#
-#     while len(end_city) == 0:
-#         end_city = input('Enter destination the city: ').title().strip()
-#
-#     while len(end_state) != 2 or not end_state.isalpha():
-#         end_state = input('Enter the 2-letter destination state abbreviation: ').upper().strip()
-#
-#     start_address = f'{start_st_address}, {start_city}, {start_state}'
-#     end_address = f'{end_st_address}, {end_city}, {end_state}'
-#     start_lat, start_lon = location.convert_to_lat_lon(start_address)  # pass start address to lat/lon conversion function
-#     end_lat, end_lon = location.convert_to_lat_lon(end_address)  # same for end address
-#     return start_lat, start_lon, end_lat, end_lon, start_address, end_address
-
-
 def get_wx_json(start_lat, start_lon, end_lat, end_lon, wx_key):
     try:
         # start location weather data
