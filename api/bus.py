@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+import time
 import os
 import requests
 import logging
@@ -11,7 +12,7 @@ key = os.environ.get("bing_maps_key")
 class BusTrip:
     #hardcoded data
     mode = 'Transit'
-    units = 'imperial'
+    units = 'mi'
 
     #Set on creation
     start_location = None
@@ -38,7 +39,7 @@ class BusTrip:
             self.refresh_trip()
         
     def __str__(self) -> str:
-        return f'Start: {self.start_location}, End: {self.end_location}, Duration: {self.duration}, Arrival time: {self.eta}, Cost: {self.cost}'
+        return f'Start: {self.start_location}, End: {self.end_location}, Duration: {self.duration}, Arrival time: {self.eta}'
 
     #allows trip to be recreated using new start location
     def update_start(self, new_location):
@@ -62,14 +63,15 @@ class BusTrip:
     def extract_json(self, data):
         self.trip = data
         self.cost = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['cost'] #Bing always returns 0
-        self.trip_start_time = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['startTime']
-        self.eta = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['endTime'] #'/Date(1616950606000-0700)/' Format
+        self.trip_start_time = convert_time(self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['startTime']) #'/Date(1616950606000-0700)/' converted to dateTime
+        self.eta = convert_time(self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['endTime']) #'/Date(1616950606000-0700)/' converted to dateTime
         self.start_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualStart']['coordinates']
         self.end_coordinates = self.trip['resourceSets'][0]['resources'][0]['routeLegs'][0]['actualEnd']['coordinates']
-        self.duration = self.trip['resourceSets'][0]['resources'][0]['travelDuration']
-        self.distance = self.trip['resourceSets'][0]['resources'][0]['travelDistance']
+        self.duration = self.trip['resourceSets'][0]['resources'][0]['travelDuration'] #seconds
+        self.distance = self.trip['resourceSets'][0]['resources'][0]['travelDistance'] #miles
 
-    
+
+
     #Pulls JSON of trip from bing.
     def refresh_trip(self):
         try:
@@ -88,8 +90,9 @@ class BusTrip:
            logging.exception(response.text)
            return None, e
 
-trip = BusTrip("Mall of America", "Target Field", "9:00:00")
-
-pass
-
-print(trip)
+#Takes raw epoch and converts to datetime
+def convert_time(raw_timestamp):
+    if(type(raw_timestamp) == str): #Checks if timestamp is already int.
+        raw_timestamp = int(str(raw_timestamp[6:16])) #Must be in seconds. Not Milliseconds.    
+    time_converted = dt.fromtimestamp(raw_timestamp)
+    return time_converted

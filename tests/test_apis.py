@@ -17,6 +17,12 @@ class BusTripTest(unittest.TestCase):
     #     newTime = '3:00:00'
     #     response = newtrip.update_start_time(newTime)
 
+    def test_convert_time(self):
+        epoch_timestamp = '/Date(1616950606000-0700)/'
+        expected_result = dt(2021,3,28,11,56,46)
+        response = convert_time(epoch_timestamp)
+        self.assertTrue(response == expected_result)
+
     def test_extract_json(self):
         #Test proper extraction of data from json file
         #This test duplicates the code of the method and does not actually implement it.
