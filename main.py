@@ -23,15 +23,16 @@ def create_menu():
 
 
 def get_trip_data():
-    new_trip_data = display.get_trip_info()
-    try:
-        new_trip_data.insert_artist()
-    except:
-        print('This artist is already in the database.')
+    start_lat_lon, end_lat_lon = display.get_trip_locs()
+    etd_uber, eta_uber = display.get_uber_times(start_lat_lon, end_lat_lon)
+    # try:
+    #     new_trip_data.insert_artist()
+    # except:
+    #     print('This trip is already in the database.')
 
 
 def quit_program():
-    display.message('\nThanks for checking out the store!')
+    display.message('\nGoodbye!')
 
 
 if __name__ == '__main__':
