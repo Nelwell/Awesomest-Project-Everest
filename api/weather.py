@@ -1,16 +1,14 @@
 import os
 import requests
 from datetime import datetime
-import location
 
 wx_key = os.environ.get('open_weather_key')  # environment variable
 query = {'lat': 44.972659, 'lon': -93.28372334243436, 'units': 'imperial', 'appid': wx_key}  # dictionary to store params
 url = 'http://api.openweathermap.org/data/2.5/forecast'  # base url
 
 
-def get_weather_data():
-    start_lat, start_lon, end_lat, end_lon, start_address, end_address = get_locations()
-    # start_datetime, stop_datetime = get_datetimes()
+def get_weather_data(start_lat, start_lon, end_lat, end_lon, start_address, end_address):
+    # start_lat, start_lon, end_lat, end_lon, start_address, end_address = get_locations()
     start_weather_data, end_weather_data, error = get_wx_json(start_lat, start_lon, end_lat, end_lon, wx_key)
     if error:
         print('Sorry, could not get weather for that location or location doesn\'t exist')
@@ -19,35 +17,32 @@ def get_weather_data():
     return start_weather_data, end_weather_data
 
 
-def get_locations():
-    start_st_address, start_city, start_state = '', '', ''
-    end_st_address, end_city, end_state = '', '', ''
-    while len(start_st_address) == 0:
-        start_st_address = input('Enter the departure street address: ').title().strip()
-
-    while len(start_city) == 0:
-        start_city = input('Enter departure the city: ').title().strip()
-
-    while len(start_state) != 2 or not start_state.isalpha():
-        start_state = input('Enter the 2-letter departure state abbreviation: ').upper().strip()
-
-    while len(end_st_address) == 0:
-        end_st_address = input('Enter the destination street address: ').title().strip()
-
-    while len(end_city) == 0:
-        end_city = input('Enter destination the city: ').title().strip()
-
-    while len(end_state) != 2 or not end_state.isalpha():
-        end_state = input('Enter the 2-letter destination state abbreviation: ').upper().strip()
-
-    start_address = f'{start_st_address}, {start_city}, {start_state}'
-    end_address = f'{end_st_address}, {end_city}, {end_state}'
-    start_lat, start_lon = location.convert_to_lat_lon(start_address)  # pass start address to lat/lon conversion function
-    end_lat, end_lon = location.convert_to_lat_lon(end_address)  # same for end address
-    return start_lat, start_lon, end_lat, end_lon, start_address, end_address
-
-
-# def get_datetimes():
+# def get_locations():
+#     start_st_address, start_city, start_state = '', '', ''
+#     end_st_address, end_city, end_state = '', '', ''
+#     while len(start_st_address) == 0:
+#         start_st_address = input('Enter the departure street address: ').title().strip()
+#
+#     while len(start_city) == 0:
+#         start_city = input('Enter departure the city: ').title().strip()
+#
+#     while len(start_state) != 2 or not start_state.isalpha():
+#         start_state = input('Enter the 2-letter departure state abbreviation: ').upper().strip()
+#
+#     while len(end_st_address) == 0:
+#         end_st_address = input('Enter the destination street address: ').title().strip()
+#
+#     while len(end_city) == 0:
+#         end_city = input('Enter destination the city: ').title().strip()
+#
+#     while len(end_state) != 2 or not end_state.isalpha():
+#         end_state = input('Enter the 2-letter destination state abbreviation: ').upper().strip()
+#
+#     start_address = f'{start_st_address}, {start_city}, {start_state}'
+#     end_address = f'{end_st_address}, {end_city}, {end_state}'
+#     start_lat, start_lon = location.convert_to_lat_lon(start_address)  # pass start address to lat/lon conversion function
+#     end_lat, end_lon = location.convert_to_lat_lon(end_address)  # same for end address
+#     return start_lat, start_lon, end_lat, end_lon, start_address, end_address
 
 
 def get_wx_json(start_lat, start_lon, end_lat, end_lon, wx_key):
@@ -72,7 +67,6 @@ def get_wx_json(start_lat, start_lon, end_lat, end_lon, wx_key):
 def display_wx_forecast(start_weather_data, end_weather_data, start_address, end_address):
     start_fcst_data_list = start_weather_data['list']
 
-    print(f'\n*** HERE\'S YOUR {start_address} 3-HOURLY, 5-DAY FORECAST ***')
     for element in start_fcst_data_list:
         temp = element['main']['temp']
         wind_spd = element['wind']['speed']
@@ -85,6 +79,3 @@ def display_wx_forecast(start_weather_data, end_weather_data, start_address, end
             wx_desc = wx['description']
             print(f'\tWeather: {wx_desc}')
         print(f'\tWind Speed: {wind_spd}mph')
-
-
-get_weather_data()
