@@ -12,13 +12,13 @@ def is_valid_password(password):
     password_valid = re.match("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", password)
     return password_valid
 
-
 def is_valid_json(jsonData): 
-	#https://pynative.com/python-json-validation/ Shamelessly copied. 
 	#Returns a value error if the json is invalid and returns false, otherwise returns true.
     try:
-        json.loads(jsonData)
-        return True
+        if (type(jsonData) == dict):
+            return True
+        elif (type(jsonData) == str):
+            json.loads(jsonData)
+            return True
     except ValueError as err:
         return False
-
