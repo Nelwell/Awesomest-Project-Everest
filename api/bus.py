@@ -5,7 +5,6 @@ import requests
 import logging
 from requests.models import Response
 from validate import *
-# from api.validate import *
 
 key = os.environ.get("bing_maps_key")
 
@@ -80,11 +79,10 @@ class BusTrip:
             response = requests.get(url, params=query)
             response.raise_for_status()
             data = response.json()
-            self.extract_json(data)
             #Uses json validator
-            # if is_valid_json(data):
-            #     logging.info(f'Data recieved:\n{data}')
-            #     self.extract_json(data)
+            if is_valid_json(data):
+                logging.info(f'Data recieved:\n{data}')
+                self.extract_json(data)
         except Exception as e:
            logging.exception(e)
            logging.exception(response.text)
