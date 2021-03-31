@@ -2,6 +2,7 @@ import os
 import requests
 from datetime import datetime
 
+# api query variables
 wx_key = os.environ.get('open_weather_key')  # environment variable
 query = {'lat': 44.972659, 'lon': -93.28372334243436, 'units': 'imperial', 'appid': wx_key}  # dictionary to store params
 url = 'http://api.openweathermap.org/data/2.5/forecast'  # base url
