@@ -2,6 +2,7 @@ import ui.objects
 from api import location
 import time
 from datetime import datetime
+from api.uber import UberTrip
 
 
 def display_menu(menu):
@@ -29,6 +30,7 @@ def get_trip_locs():
     start_st_address, start_city, start_state = '', '', ''
     end_st_address, end_city, end_state = '', '', ''
     while len(start_st_address) == 0:
+        print('\nDeparture Location Information:')
         start_st_address = input('Enter the departure street address: ').title().strip()
 
     while len(start_city) == 0:
@@ -38,6 +40,7 @@ def get_trip_locs():
         start_state = input('Enter the 2-letter departure state abbreviation: ').upper().strip()
 
     while len(end_st_address) == 0:
+        print('\nDestination Location Information:')
         end_st_address = input('Enter the destination street address: ').title().strip()
 
     while len(end_city) == 0:
@@ -50,23 +53,22 @@ def get_trip_locs():
     end_address = f'{end_st_address}, {end_city}, {end_state}'
     start_lat, start_lon = location.convert_to_lat_lon(start_address)  # pass start address to lat/lon conversion function
     end_lat, end_lon = location.convert_to_lat_lon(end_address)  # same for end address
-    start_location = ui.objects.Location(start_lat, start_lon)
-    end_location = ui.objects.Location(end_lat, end_lon)
+    start_lat_lon = ui.objects.Location(start_lat, start_lon)
+    end_lat_lon = ui.objects.Location(end_lat, end_lon)
 
-    return start_location, end_location
+    return start_lat_lon, end_lat_lon
 
 
 def get_uber_times(start_lat_lon, end_lat_lon):
     convert_to_sec = 60 * 60
-    num_hours = int(input('In how many hours do you plan to leave? '))
+    num_hours = int(input('\nIn how many hours do you plan to leave? '))
     seconds_to_departure = num_hours*convert_to_sec
     epoch_time_in_sec = int(time.time())
-    departure_in_epoch_time = epoch_time_in_sec + seconds_to_departure
-    # print(time.gmtime(epoch_time_in_sec))
-    # etd_uber = time.strftime('%H:%M:%S', departure_in_epoch_time)
-    # print(etd_uber)
+    etd_uber = epoch_time_in_sec + seconds_to_departure  # to be passed into weather api
+    print(etd_uber)
+    # print(datetime.fromtimestamp(etd_uber).strftime('%H:%M:%S'))
 
-    # return etd_uber, eta_uber
+    return etd_uber  # eta_uber would go here as well once calculated using passed in lat/lons
 
 
 def display_data():
